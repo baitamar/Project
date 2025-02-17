@@ -1,0 +1,129 @@
+
+
+a possible more efficiant way to manage reserved_words_list, to alphbetically orgenize it. however, something is broken
+
+
+
+********
+static void reserved_list_swap(reserved *a, reserved *b);
+static void alphbetically_orgenize_reserved_list(reserved *temp3);
+
+
+static void initiating_reserved_words_list()
+{
+char *commands[] = {"sub","mov","cmp","add","lea","bne","clr","dec","inc","jmp","jsr","not","prn","red","rts","stop"};
+int i=0, j;/* temp delete j*/
+reserved *head = NULL, *tail = NULL, *temp1 = NULL, *temp2 = NULL, *temp3 = NULL;
+head = (reserved *) malloc(sizeof(reserved));
+head->next = NULL;
+head->previous = NULL;
+head->name = commands[i];
+head->operands = 2;
+head-> type = COMMAND;
+temp1 = head;
+i++;
+/*printf("head: %s\n",head->name); temp */
+for (; i<TWO_OPERANDS_COMMANDS_NUM; i++)	/* go over commands with two operands */
+	{
+	temp2 = (reserved *) malloc(sizeof(reserved));
+	temp2->next = NULL;
+	temp2->previous = temp1;
+	temp2->name = commands[i];
+	temp2->operands = 2;
+	temp2->type = COMMAND;
+	temp1->next = temp2;
+	/*printf("temp1: %s temp1->next: %s\n",temp1->name,temp1->next->name);temp */
+	temp1 = temp2;
+	temp3 = temp2;
+	/*printf("temp3: %s t3 pre: %s t3 next: %s\n",temp3->name,temp3->previous->name,temp3->next); temp */
+	alphbetically_orgenize_reserved_list(temp3);
+	}
+
+
+
+for (; i<TWO_OPERANDS_COMMANDS_NUM + ONE_OPERAND_COMMANDS_NUM; i++)	 /*go over commands with one operand */
+	{
+	temp2 = (reserved *) malloc(sizeof(reserved));
+	temp2->next = NULL;
+	temp2->previous = temp1;
+	temp2->name = commands[i];
+	temp2->operands = 1;
+	temp2->type = COMMAND;
+	temp1->next = temp2;
+	temp1 = temp2;
+	temp3 = temp2;
+	/*alphbetically_orgenize_reserved_list(temp3);*/
+	}
+for (; i<COMMANDS_NUM - 1; i++)	/* go over commands with zero operands, but the last one which will be handled seperatly after the for loop */
+	{
+	temp2 = (reserved *) malloc(sizeof(reserved));
+	temp2->next = NULL;
+	temp2->previous = temp1;
+	temp2->name = commands[i];
+	temp2->operands = 0;
+	temp2->type = COMMAND;
+	temp1->next = temp2;
+	temp1 = temp2;
+	temp3 = temp2;
+	/*alphbetically_orgenize_reserved_list(temp3);*/
+	}
+tail = (reserved *) malloc(sizeof(reserved));
+tail->next = NULL;
+tail->previous = temp1;
+tail->name = commands[i];
+tail->operands = 0;
+tail->type = COMMAND;
+temp1->next = tail;
+temp3 = tail;
+/*alphbetically_orgenize_reserved_list(temp3);*/
+/* temp*** 
+temp1 = head->next;
+for (j=1; j<i; j++)
+	{
+	printf("j: %d list[j].name: %s list[j].next.name: %s list[j].previous.name: %s\n",j,temp1->name,temp1->next->name,temp1->previous->name);
+	temp1 = temp1->next;
+	}*/
+
+ /*temp*** */
+
+}
+
+
+
+static void alphbetically_orgenize_reserved_list(reserved *temp3)
+{
+int swapBreak = FALSE,i=0;
+
+while (temp3->previous != NULL && swapBreak == FALSE)
+	{
+	printf("iteration #%d\n",i);/*temp */
+	i++;
+	if (strcmp(temp3->name, temp3->previous->name)<0)
+		{
+		printf("before swap- temp3: %s t3 pre: %s t3 next: %s\n",temp3->name,temp3->previous->name,temp3->next); /*temp */
+		printf("before swap- temp3->pre: %s temp3->pre->pre: %s temp3->pre->next: %s\n",temp3->previous->name,temp3->previous->previous,temp3->previous->next->name); /*temp */
+		reserved_list_swap(temp3->previous, temp3);
+		/*printf("after swap- temp3: %s t3 pre: %s t3 next: %s\n",temp3->name,temp3->previous->name,temp3->next); temp */
+		/*temp3 = temp3->previous;
+		printf("after advancing- temp3: %s\n",temp3->name); temp */
+		}				
+	else
+		swapBreak = TRUE;
+	}
+}
+
+/* a was before b, and after swap, a will be after b */
+static void reserved_list_swap(reserved *a, reserved *b)
+{
+reserved *temp;
+printf("before swap- a: %s a->pre: %s a->next: %s\n",a->name, a->previous, a->next);/*temp */
+printf("before swap- b: %s b->pre: %s b->next: %s\n",b->name, b->previous, b->next);/*temp */
+temp = a->previous;
+printf("before swap- temp: %s\n",temp->name);/*temp */
+a->next = b->next;
+a->previous = b;
+printf("after swap part 1- a: %s a->pre: %s a->next: %s\n",a->name, a->previous, a->next);/*temp */
+b->previous = temp;
+b->next = a;
+printf("after swap part 2- b: %s b->pre: %s b->next: %s\n",b->name, b->previous, b->next);/*temp */
+}
