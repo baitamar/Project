@@ -7,4 +7,5 @@ extern void shortenStrings(char line[], char shortLine[], int starting_point);*/
 static void initiating_reserved_fixed_words_list(reserved *headFixed);
 static void initiating_input_array(char **input[], char *CSVinput[], char *spaceInput[], char firstSpaceSegment[], char secondSpaceSegment[], char thirdSpaceSegment[], char forthSpaceSegment[], char firstCSVSegment[], char secondCSVSegment[], char thirdCSVSegment[], char forthCSVSegment[]);
 static void initiating_reserved_non_fixed_words_list(reserved *headNonFixed);
-static void powerOfTwoArray(int powerOfTwo[]);
+static void powerOfTwoArray(int *powerOfTwo);
+static void initiatingCodeLineArrays(codeLine data[], codeLine code[]);

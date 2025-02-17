@@ -2,23 +2,14 @@
 #include "initiating.h"
 
 
-
-void initiating(int *filesNum, int argc, reserved *headNonFixed, reserved *headFixed, char **input[], char *CSVinput[], char *spaceInput[], char firstSpaceSegment[], char secondSpaceSegment[], char thirdSpaceSegment[], char forthSpaceSegment[], char firstCSVSegment[], char secondCSVSegment[], char thirdCSVSegment[], char forthCSVSegment[], int powerOfTwo)
+void initiating(int *filesNum, int argc, reserved *headNonFixed, reserved *headFixed, char **input[], char *CSVinput[], char *spaceInput[], char firstSpaceSegment[], char secondSpaceSegment[], char thirdSpaceSegment[], char forthSpaceSegment[], char firstCSVSegment[], char secondCSVSegment[], char thirdCSVSegment[], char forthCSVSegment[], int powerOfTwo[], codeLine data[], codeLine code[])
 {
-reserved *temp;/*temp*/
 *filesNum = argc - 1;
 initiating_input_array(input, CSVinput, spaceInput, firstSpaceSegment, secondSpaceSegment, thirdSpaceSegment, forthSpaceSegment, firstCSVSegment, secondCSVSegment, thirdCSVSegment, forthCSVSegment);
 initiating_reserved_fixed_words_list(headFixed);
 initiating_reserved_non_fixed_words_list(headNonFixed);
-powerOfTwoArray(&powerOfTwo);
-/*temp*/
-/*temp = headNonFixed;
-while(temp != NULL)
-	{
-	printf("in initiating. temp: %s\n",temp->name);
-	temp = temp->next;
-	}
-temp*/
+powerOfTwoArray(powerOfTwo);
+initiatingCodeLineArrays(data, code);
 return;
 }
 
@@ -87,8 +78,8 @@ CSVinput[2] = thirdCSVSegment;
 CSVinput[3] = forthCSVSegment;
 }
 
-
-static void powerOfTwoArray(int powerOfTwo[])
+/* populating the array powerOfTwo with powerOfTwo from 0-23. This will later be used in another function, translatingNumToBinary, to transform an integer to a printed binary representation of it */
+static void powerOfTwoArray(int *powerOfTwo)
 {
 int i = WORD_LEN - 1;
 powerOfTwo[i] = 1;
@@ -96,9 +87,21 @@ i--;
 for (;i >= 0; i--)
 	{
 	powerOfTwo[i] = 2 * powerOfTwo[i + 1];
-	printf("i: %d powerOfTwo[i]: %d\n", i, powerOfTwo[i]);
 	}
-/*for (i = 0; i<24 ; i++)
-	printf("i: %d powerOfTwo[i]: %d\n", i, powerOfTwo[i]);*/
+}
+
+
+static void initiatingCodeLineArrays(codeLine data[], codeLine code[])
+{
+int i;
+for(i = 0; i < CODLINE_SIZE_JUMPS; i++)
+	{
+	data[i].intToBeTranslatedToBinary = 0;
+	code[i].intToBeTranslatedToBinary = 0;
+	data[i].isCompletedOnFirstPass = FALSE;
+	code[i].isCompletedOnFirstPass = FALSE;
+	data[i].line = (char *) malloc(MAXLINE * sizeof(char));
+	code[i].line = (char *) malloc(MAXLINE * sizeof(char));
+	}
 }
 

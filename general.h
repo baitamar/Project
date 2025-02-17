@@ -11,9 +11,23 @@ short type;
 char *name;
 short operands;
 char *replacement;
+int commandsMask;
+int labelsAddress;
+short codeOrData;
+short externalOrEntry;
 };
 
 typedef struct reserevedList reserved;
+
+struct assemblyCodeLine
+{
+char *line;
+int intToBeTranslatedToBinary;
+short isCompletedOnFirstPass;
+};
+
+typedef struct assemblyCodeLine codeLine;
+
 
 /* *** ERRORS LIST *** */
 #define ERROR_1 "No command line argument was passed\n"
@@ -53,36 +67,12 @@ typedef struct reserevedList reserved;
 #define FIRST_SEGMENT 0
 #define SECOND_SEGMENT 1
 
-/* *** POWER OF TWO *** */
-#define POWER_OF_TWO_0 1
-#define POWER_OF_TWO_1 2
-#define POWER_OF_TWO_2 4
-#define POWER_OF_TWO_3 8
-#define POWER_OF_TWO_4 16
-#define POWER_OF_TWO_5 32
-#define POWER_OF_TWO_6 64
-#define POWER_OF_TWO_7 128
-#define POWER_OF_TWO_8 256
-#define POWER_OF_TWO_9 512
-#define POWER_OF_TWO_10 1024
-#define POWER_OF_TWO_11 2048
-#define POWER_OF_TWO_12 4096
-#define POWER_OF_TWO_13 8192
-#define POWER_OF_TWO_14 1
-#define POWER_OF_TWO_15 1
-#define POWER_OF_TWO_16 1
-#define POWER_OF_TWO_17 1
-#define POWER_OF_TWO_18 1
-#define POWER_OF_TWO_19 1
-#define POWER_OF_TWO_20 1
-#define POWER_OF_TWO_21 1
-#define POWER_OF_TWO_22 1
-#define POWER_OF_TWO_23 1
-
 /* *** GENERAL *** */
 
 enum {FALSE,TRUE};
-enum {COMMAND,LABEL,MCRO,REGISTER,GUIDANCE,DUMMY};
+enum {COMMAND, LABEL, MCRO, REGISTER, GUIDANCE, DUMMY};
+enum {CODE, DATA};
+enum {EXTERNAL, ENTRY};
 #define FILE_NAME_LEN 30
 #define COMMANDS_NUM 16
 #define TWO_OPERANDS_COMMANDS_NUM 5
@@ -94,7 +84,7 @@ enum {COMMAND,LABEL,MCRO,REGISTER,GUIDANCE,DUMMY};
 #define DELIMINATOR_SPACE " "
 #define DELIMINATOR_COMMA ","
 #define WORD_LEN 24
-
+#define CODLINE_SIZE_JUMPS 10
 
 /*#define Multiplicative_inverse -1	temp does it really needed?*/
 

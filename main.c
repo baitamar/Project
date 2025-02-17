@@ -9,7 +9,8 @@ char fileBase[FILE_NAME_LEN], currentFile[FILE_NAME_LEN];
 /* input line segments holders*/
 char **input[NUM_SEGMENTS_TYPES], *CSVinput[CSV_SEGMENTS_NUM], *spaceInput[SPACE_SEPERETED_SEGMENTS_NUM], firstSpaceSegment[SEGMENT_LEN], secondSpaceSegment[SEGMENT_LEN], thirdSpaceSegment[SEGMENT_LEN], forthSpaceSegment[SEGMENT_LEN],firstCSVSegment[SEGMENT_LEN], secondCSVSegment[SEGMENT_LEN], thirdCSVSegment[SEGMENT_LEN], forthCSVSegment[SEGMENT_LEN];
 FILE *fPtr;
-reserved *headFixed = NULL, *headNonFixed = NULL, *temp = NULL;/*temp delete temp */
+reserved *headFixed = NULL, *headNonFixed = NULL;
+codeLine data[CODLINE_SIZE_JUMPS], code[CODLINE_SIZE_JUMPS];
 headNonFixed = (reserved *) malloc(sizeof(reserved));
 headFixed = (reserved *) malloc(sizeof(reserved));
 if(argc == 1)
@@ -17,7 +18,7 @@ if(argc == 1)
 	printf(ERROR_1);
 	return 0;	/* dummy, to end the program */
 	}
-initiating(&filesNum, argc, headNonFixed, headFixed, input, CSVinput, spaceInput, firstSpaceSegment, secondSpaceSegment, thirdSpaceSegment, forthSpaceSegment, firstCSVSegment, secondCSVSegment, thirdCSVSegment, forthCSVSegment,powerOfTwo);
+initiating(&filesNum, argc, headNonFixed, headFixed, input, CSVinput, spaceInput, firstSpaceSegment, secondSpaceSegment, thirdSpaceSegment, forthSpaceSegment, firstCSVSegment, secondCSVSegment, thirdCSVSegment, forthCSVSegment,powerOfTwo, code, data);
 for (i=0; i<filesNum; i++)
 	{
 	strcpy(fileBase, argv[i+1]);
@@ -39,13 +40,5 @@ for (i=0; i<filesNum; i++)
 		}
 	/* temp comment delete NonFixed list upon finishing up with each file processed*/
 	}
-/* temp */
-/*temp = headFixed;
-while(temp != NULL)
-	{
-	printf("temp: %s\n",temp->name);
-	temp = temp->next;
-	}
- temp */
 return 0; /* dummy */
 }

@@ -6,3 +6,4 @@ extern int lineParsingCommaDeliminated(char *CSVinput[],char shortLine[], int CS
 extern void shortenStrings(char line[], char shortLine[], int starting_point);
 extern reserved* addingReservedObjectToList(reserved *head, short type, char *name, short operands);
 */
+extern void translatingNumToBinary(int num, int powerOfTwo[]);
