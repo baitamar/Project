@@ -34,6 +34,8 @@ for (i=0; i<filesNum; i++)
 			{		
 			fPtr = fopen(currentFile,READ_MODE);
 			errorFlag = preprocess(fileBase, fPtr, DOT_AM, input, headNonFixed, headFixed);
+			firstPass(fileBase, input);
+			secondPass(input);
 			fclose(fPtr);
 			completingFlag = TRUE; /* temp */
 			}

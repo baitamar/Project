@@ -38,3 +38,7 @@ start: not r7 ,B
 bne END
 start: not r7 ,B
 sub t2, f3
+start: not r7 ,B
+bne END
+start: not r7 ,B
+sub t2, f3

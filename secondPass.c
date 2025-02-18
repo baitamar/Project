@@ -1,3 +1,7 @@
 #include "general.h"
 #include "secondPass.h"
-/* test */
+void secondPass(char **input[])
+{
+
+return;
+}

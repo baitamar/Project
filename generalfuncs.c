@@ -138,6 +138,7 @@ int spaceInputCounter, errorFlag = FALSE;
 spaceInputCounter = lineParsingSpaceDeliminated(input[FIRST_SEGMENT], line, shortLine, numSpaceSegments);
 /*printf("numSpaceSegments: %d\n",*numSpaceSegments);temp*/
 if(strpbrk(line, DELIMINATOR_COMMA) != NULL)	/* Only when there is an occurrence of a comma in line, run the function to equilibrate Space and CSV input arrays */
+/* temp comment: another scenario needs to be added- if a command has only one operand, this non-comma seperated segment should be stored in CSVinput, as the point of CSVinput is to hold the operands */
 	lineParsingSpaceInputAndCSVInputEquilibrating(input[FIRST_SEGMENT], input[SECOND_SEGMENT], spaceInputCounter);
 errorFlag = lineParsingCommaDeliminated(input[SECOND_SEGMENT], shortLine, SECOND_SEGMENT, numCSVsegments);
 if (errorFlag == TRUE)
@@ -173,42 +174,16 @@ return temp2;
 
 void translatingNumToBinary(int num, int powerOfTwo[])
 {
-int twentyThirdBitMSB = FALSE, twentySecondBit = FALSE, twentyOneBit = FALSE, twentiethBit = FALSE, nineteenthBit = FALSE, eighteenthBit = FALSE, seventeenthBit = FALSE, sixteenthBit = FALSE, fifthteenthBit = FALSE, fourteenthBit = FALSE, thirteenthBit = FALSE, twelvethBit = FALSE, eleventhBit = FALSE, tenthBit = FALSE, ninethBit = FALSE, eighthBit = FALSE, seventhBit = FALSE, sixthBit = FALSE, FifthBit = FALSE, fourthBit = FALSE, thirdBit = FALSE, secondBit = FALSE, firstBit = FALSE, zerothBitLSB = FALSE, binaryTranslation[WORD_LEN], i = 0;
-
-binaryTranslation[0] = twentyThirdBitMSB;
-binaryTranslation[1] = twentySecondBit;
-binaryTranslation[2] = twentyOneBit;
-binaryTranslation[3] = twentiethBit;
-binaryTranslation[4] = nineteenthBit;
-binaryTranslation[5] = eighteenthBit;
-binaryTranslation[6] = seventeenthBit;
-binaryTranslation[7] = sixteenthBit;
-binaryTranslation[8] = fifthteenthBit;
-binaryTranslation[9] = fourteenthBit;
-binaryTranslation[10] = thirteenthBit;
-binaryTranslation[11] = twelvethBit;
-binaryTranslation[12] = eleventhBit;
-binaryTranslation[13] = tenthBit;
-binaryTranslation[14] = ninethBit;
-binaryTranslation[15] = eighthBit;
-binaryTranslation[16] = seventhBit;
-binaryTranslation[17] = sixthBit;
-binaryTranslation[18] = FifthBit;
-binaryTranslation[19] = fourthBit;
-binaryTranslation[20] = thirdBit;
-binaryTranslation[21] = secondBit;
-binaryTranslation[22] = firstBit;
-binaryTranslation[23] = zerothBitLSB;
-while(num > 0)
+short binaryTranslation[WORD_LEN], i;
+for(; i < WORD_LEN; i++) 
 	{
-	for(; i < WORD_LEN; i++) 
+	if(num >= powerOfTwo[i])
 		{
-		if(num >= powerOfTwo[i])
-			{
-			binaryTranslation[i] = TRUE;
-			num -= powerOfTwo[i];
-			}
+		binaryTranslation[i] = TRUE;
+		num -= powerOfTwo[i];
 		}
+	else
+		binaryTranslation[i] = FALSE;
 	}
 printf("%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d\n",binaryTranslation[0], binaryTranslation[1], binaryTranslation[2], binaryTranslation[3], binaryTranslation[4], binaryTranslation[5], binaryTranslation[6], binaryTranslation[7], binaryTranslation[8], binaryTranslation[9], binaryTranslation[10], binaryTranslation[11], binaryTranslation[12], binaryTranslation[13], binaryTranslation[14], binaryTranslation[15], binaryTranslation[16], binaryTranslation[17], binaryTranslation[18], binaryTranslation[19], binaryTranslation[20], binaryTranslation[21], binaryTranslation[22], binaryTranslation[23]);
 }

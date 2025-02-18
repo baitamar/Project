@@ -10,3 +10,7 @@ void translatingNumToBinary(int num, int powerOfTwo[]);
 void initiating(int *filesNum, int argc, reserved *headNonFixed, reserved *headFixed, char **input[], char *CSVinput[], char *spaceInput[], char firstSpaceSegment[], char secondSpaceSegment[], char thirdSpaceSegment[], char forthSpaceSegment[], char firstCSVSegment[], char secondCSVSegment[], char thirdCSVSegment[], char forthCSVSegment[], int poerOfTwo[], codeLine data[], codeLine code[]);
 /* in preprocess.c */
 int preprocess(char fileBase[], FILE *fPtrOrig, char suffix[], char **input[], reserved *headNonFixed, reserved *headFixed);
+/* in firstPass */
+void firstPass(char fileBase[], char **input[]);
+/* in secondPass */
+void secondPass(char **input[]);

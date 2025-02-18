@@ -22,7 +22,7 @@ typedef struct reserevedList reserved;
 struct assemblyCodeLine
 {
 char *line;
-int intToBeTranslatedToBinary;
+unsigned int intToBeTranslatedToBinary;
 short isCompletedOnFirstPass;
 };
 
